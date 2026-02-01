@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>💖 Valentine Proposal 💖</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: #ffc0cb;
+      position: relative;
+    }
+
+
+
+    /* Floating hearts background */
+    .heart {
+      position: absolute;
+      font-size: 24px;
+      opacity: 0.3;
+      animation: float 10s infinite ease-in-out;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.3;
+      }
+
+      50% {
+        transform: translateY(-100px) rotate(180deg);
+        opacity: 0.6;
+      }
+    }
+
+    .card {
+      background: white;
+      padding: 50px 45px;
+      border-radius: 28px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(255, 182, 193, 0.4),
+        0 8px 20px rgba(255, 192, 203, 0.3);
+      max-width: 450px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      z-index: 10;
+      animation: cardEntrance 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes cardEntrance {
+      from {
+        opacity: 0;
+        transform: scale(0.8) translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      color: #ff69b4;
+      font-size: 38px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      letter-spacing: -0.3px;
+    }
+
+
+
+    p {
+      font-size: 20px;
+      margin-bottom: 40px;
+      color: #666;
+      font-weight: 400;
+      letter-spacing: 0.2px;
+    }
+
+    .buttons {
+      position: relative;
+      height: 150px;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 16px 40px;
+      font-size: 18px;
+      font-weight: 600;
+      border: none;
+      border-radius: 16px;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0.5px;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2),
+        0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+      position: absolute;
+    }
+
+    #yesBtn {
+      background: #ff69b4;
+      color: white;
+      left: 50%;
+      top: 20px;
+      transform: translateX(-50%);
+      z-index: 1;
+    }
+
+    #yesBtn:hover {
+      transform: translateX(-50%) translateY(-3px) scale(1.05);
+      box-shadow: 0 10px 25px rgba(255, 105, 180, 0.4);
+      background: #ff1493;
+    }
+
+    #yesBtn:active {
+      transform: translateX(-50%) translateY(-1px) scale(1.02);
+    }
+
+    #noBtn {
+      background: #ffb6c1;
+      color: white;
+      left: 50%;
+      top: 80px;
+      transform: translateX(-50%);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index: 2;
+    }
+
+    .love {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      line-height: 1.5;
+      margin-top: 35px;
+      color: #ff69b4;
+      font-weight: 600;
+      display: none;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .love.show {
+      opacity: 1;
+      animation: celebrate 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes celebrate {
+      0% {
+        opacity: 0;
+        transform: scale(0.5) translateY(20px);
+      }
+
+      60% {
+        transform: scale(1.05) translateY(-5px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .buttons.hide {
+      opacity: 0;
+      transform: scale(0.8);
+      transition: all 0.5s ease-in-out;
+      pointer-events: none;
+    }
+
+    /* Confetti effect */
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #ff0844;
+      animation: confettiFall 3s linear infinite;
+    }
+
+    @keyframes confettiFall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- EmailJS SDK -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function () {
+      // Initialize EmailJS with your public key
+      // Replace 'YOUR_PUBLIC_KEY' with your actual EmailJS public key
+      emailjs.init('NFTY6WQkAhBXSjjFj');
+    })();
+  </script>
+  <!-- Floating hearts -->
+  <div class="heart" style="left: 10%; animation-delay: 0s;">💕</div>
+  <div class="heart" style="left: 20%; animation-delay: 2s;">💖</div>
+  <div class="heart" style="left: 30%; animation-delay: 4s;">💗</div>
+  <div class="heart" style="left: 40%; animation-delay: 1s;">💓</div>
+  <div class="heart" style="left: 50%; animation-delay: 3s;">💕</div>
+  <div class="heart" style="left: 60%; animation-delay: 5s;">💖</div>
+  <div class="heart" style="left: 70%; animation-delay: 2.5s;">💗</div>
+  <div class="heart" style="left: 80%; animation-delay: 4.5s;">💓</div>
+  <div class="heart" style="left: 90%; animation-delay: 1.5s;">💕</div>
+
+  <div class="card">
+    <h1>Hey Shruti Kale 💕</h1>
+    <p>Will you be my Valentine? 💌</p>
+
+    <div class="buttons">
+      <button id="yesBtn" onclick="sayYes()">Yes 💖</button>
+      <button id="noBtn" onmouseover="moveNo()" onmousedown="moveNo()">No 🙈</button>
+    </div>
+
+    <div class="love" id="loveMsg">
+      Yayyy! ❤️ I knew it 😍
+    </div>
+  </div>
+
+  <script>
+    function moveNo() {
+      const btn = document.getElementById('noBtn');
+      const container = document.querySelector('.buttons');
+      const yesBtn = document.getElementById('yesBtn');
+
+      const containerWidth = container.offsetWidth;
+      const containerHeight = container.offsetHeight;
+      const btnWidth = btn.offsetWidth;
+      const btnHeight = btn.offsetHeight;
+
+      // Calculate safe zones (avoid YES button area)
+      const yesBtnRect = yesBtn.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
+
+      let x, y;
+      let attempts = 0;
+      const maxAttempts = 20;
+
+      // Try to find a position that doesn't overlap with YES button
+      do {
+        x = Math.random() * (containerWidth - btnWidth);
+        y = Math.random() * (containerHeight - btnHeight);
+        attempts++;
+
+        // Check if position overlaps with YES button (with some padding)
+        const noLeft = x;
+        const noRight = x + btnWidth;
+        const noTop = y;
+        const noBottom = y + btnHeight;
+
+        const yesLeft = yesBtnRect.left - containerRect.left - 10;
+        const yesRight = yesLeft + yesBtnRect.width + 20;
+        const yesTop = yesBtnRect.top - containerRect.top - 10;
+        const yesBottom = yesTop + yesBtnRect.height + 20;
+
+        const overlaps = !(noRight < yesLeft ||
+          noLeft > yesRight ||
+          noBottom < yesTop ||
+          noTop > yesBottom);
+
+        if (!overlaps || attempts >= maxAttempts) {
+          break;
+        }
+      } while (attempts < maxAttempts);
+
+      btn.style.left = x + 'px';
+      btn.style.top = y + 'px';
+      btn.style.transform = 'translate(0, 0)';
+    }
+
+    function sayYes() {
+      const loveMsg = document.getElementById('loveMsg');
+      const buttons = document.querySelector('.buttons');
+
+      // Send email notification
+      sendEmailNotification();
+
+      // Smooth fade out buttons
+      buttons.classList.add('hide');
+
+      // Show message after button fade
+      setTimeout(() => {
+        loveMsg.style.display = 'block';
+        // Trigger animation
+        setTimeout(() => {
+          loveMsg.classList.add('show');
+        }, 50);
+      }, 500);
+
+      // Create confetti effect
+      setTimeout(() => {
+        for (let i = 0; i < 50; i++) {
+          createConfetti();
+        }
+      }, 800);
+    }
+
+    function sendEmailNotification() {
+      // Replace these with your EmailJS credentials
+      const serviceID = 'service_5ih3vsw';
+      const templateID = 'template_rvcen5i';
+
+      const templateParams = {
+        to_name: 'You',
+        from_name: 'Shruti Kale',
+        message: 'Shruti just said YES to being your Valentine! 💕',
+        reply_to: 'noreply@valentine.com'
+      };
+
+      emailjs.send(serviceID, templateID, templateParams)
+        .then(function (response) {
+          console.log('Email sent successfully!', response.status, response.text);
+        }, function (error) {
+          console.log('Email failed to send:', error);
+        });
+    }
+
+    function createConfetti() {
+      const confetti = document.createElement('div');
+      confetti.className = 'confetti';
+      confetti.style.left = Math.random() * 100 + '%';
+      confetti.style.background = ['#ff0844', '#ff6b9d', '#10b981', '#23a6d5', '#23d5ab'][Math.floor(Math.random() * 5)];
+      confetti.style.animationDelay = Math.random() * 3 + 's';
+      document.body.appendChild(confetti);
+
+      setTimeout(() => confetti.remove(), 3000);
+    }
+  </script>
+</body>
+
+</html>
